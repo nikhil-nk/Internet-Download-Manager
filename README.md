@@ -1,5 +1,6 @@
 # OpenIDM
 A python based command-line tool to boost download speed using multiple concurrent threads.
+
 Supports file chunking to bypass download limit imposed by ISP.
 
 ## Examples
