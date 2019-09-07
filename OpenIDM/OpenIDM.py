@@ -6,6 +6,7 @@ from threading import Thread
 import requests as req
 
 # Default Values
+tool_version = "1.0.0"
 byte_size = 1048576
 max_threads = 5
 max_retry = 5
@@ -292,9 +293,10 @@ def main():
     parser.add_argument("-p", "--path", help="Change download directory path, Default: " + default_path)
     parser.add_argument("-r", "--retry", help="Set number of retries, default is " + str(max_retry))
     parser.add_argument("-s", "--no-split", action="store_true", help="Disable default file splitting behavior")
-    parser.add_argument("-t", "--threads", help="Maximum number of threads to use (Working only if split is avilable)")
+    parser.add_argument("-t", "--threads", help="Maximum number of threads to use (Working only if split is available)")
     parser.add_argument("-v", "--no-verbose", action="store_true",
                         help="Disable verbosity (Do not display output), default is Displaying")
+    parser.add_argument("-V", "--version", action="store_true", help="Display tool version and exit")
 
     args = parser.parse_args()
     split = False if args.no_split else True
@@ -303,6 +305,10 @@ def main():
     location = args.location if args.location else default_path
     threads = args.threads if args.threads else max_threads
     retries = args.retry if args.retry else max_retry
+
+    if args.version:
+        print("OpenIDM:", tool_version)
+        exit()
 
     if len(sys.argv) > 1:
         Download(File(url=args.url, location=location, name=args.name), threads=threads, path=path, retries=retries,
